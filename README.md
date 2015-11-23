@@ -7,7 +7,7 @@ http://askubuntu.com/a/254071/326120
 .bashrc things
 ==============
 
-colored prompt with color for the command you type (really useful for reading your console!)
+### Colored prompt with color for the command you type (really useful for reading your console!)
 
 ```bash
     PS1='\n\[\e[01;34m\]\w\[\e[00m\] \$ \[\e[1;35m\]'
@@ -15,9 +15,13 @@ colored prompt with color for the command you type (really useful for reading yo
 ```
 
 How it works: `\e[01;34m` and similar change the color. The `trap` is needed to reset color after the user has hit enter and before the command is run.
-Important: we need `\[   \]` around all control characters so bash can ignore them when counting the lenght of the prompt. Any mistakes with this will break prompt editing!
+Important: we need `\[   \]` around all control characters so bash can ignore them when counting the length of the prompt. Any mistakes with this will break prompt editing!
 
-View Spark-Log in a separate terminal (keeps your CLI window clean!):
+### Git-branch in prompt
+
+https://github.com/jimeh/git-aware-prompt
+
+### View Spark-Log in a separate terminal (keeps your CLI window clean!):
 ```bash
     function sparkshell() {
       gnome-terminal -e "tail -f $HOME/spark.log"
