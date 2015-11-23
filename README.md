@@ -19,7 +19,13 @@ Important: we need `\[   \]` around all control characters so bash can ignore th
 
 ### Git-branch in prompt
 
-https://github.com/jimeh/git-aware-prompt
+Clone this repository as described there: https://github.com/jimeh/git-aware-prompt
+
+Then use this as prompt:
+```bash
+    PS1="\n\[$bldblu\]\w\[$txtrst\] \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\$ \[$bldpur\]"
+    trap 'echo -ne "\e[0m"' DEBUG
+```
 
 ### View Spark-Log in a separate terminal (keeps your CLI window clean!):
 ```bash
