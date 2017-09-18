@@ -34,3 +34,8 @@ Then use this as prompt:
       ~/opt/spark-1.5.1-bin-hadoop2.6/bin/spark-shell
     }
 ```
+
+# minimize on click using launcher / dock (just like MS Windows task bar...)
+
+1. Install "Unity Tweak Tool" using the "Software" application.
+2. Find the setting in the Tweak Tool under the "Launcher" group.
