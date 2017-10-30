@@ -4,6 +4,12 @@ dotfiles
 doing the same tab color thing for gedit apparenty requires changing the entire Gnome theme: 
 http://askubuntu.com/a/254071/326120
 
+Not really a dotfile issue, but something to install on every computer used for coding:
+```bash
+sudo apt install fonts-firacode
+```
+How to activate: https://github.com/tonsky/FiraCode/wiki/Intellij-products-instructions
+
 .bashrc things
 ==============
 
