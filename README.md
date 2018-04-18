@@ -45,3 +45,8 @@ Then use this as prompt:
 
 1. Install "Unity Tweak Tool" using the "Software" application.
 2. Find the setting in the Tweak Tool under the "Launcher" group.
+
+Alternative Way (also restores the "click show window" instead of the thumbnails):
+```bash
+    gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
+```
