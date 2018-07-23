@@ -101,36 +101,7 @@ function idea() {
     XMODIFIERS="" ~/opt/idea-current/bin/idea.sh
 }
 alias ssx='ssh -X'
-function go() {
-    if [ -z $1 ]
-    then
-        ssh -X hamman01.rz.is
-    else
-        ssh -X $1.rz.is
-    fi
-}
 
-function had() {
-    BASE=/data/home/rwill/hadoop_conf/
-    if [ -z $1 ]
-    then
-        echo "Current setting: " ${HADOOP_CONF_DIR#$BASE}
-        echo "Possible settings: " `ls ${BASE}`
-    else
-        if [ -d ${BASE}$1 ]
-        then
-            HADOOP_CONF_DIR=${BASE}$1
-            echo HADOOP_CONF_DIR=$HADOOP_CONF_DIR
-        else
-            echo "Setting not found: " $1
-            echo "Possible settings: " `ls ${BASE}`
-        fi
-    fi
-}
-
-function print-pdf() {
-    pdftops -paper A4 "$1" /dev/stdout | netcat c5235-02.iscout.local. 9100
-}
 alias rsync2='rsync -av -e "ssh -A hamman01 ssh -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q"'
 
 # Add an "alert" alias for long running commands.  Use like so:
@@ -157,52 +128,38 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# .profile doesn't get loaded....
-export JDK_HOME=/usr/lib/jvm/java-8-oracle
-export JAVA_HOME=/usr/lib/jvm/java-8-oracle
-export IDEA_HOME=/data/home/rwill/idea-IU-141.178.9
-export JBOSS_HOME=/data/home/rwill/opt/jbossesb-server-4.7_hsql
-export GRADLE_HOME=/data/home/rwill/opt/gradle-2.2.1
-
-# Hadoop + Spark
-export HADOOP_CONF_DIR=/data/home/rwill/hadoop_conf/tuv
-export MASTER=yarn-client
-alias '+fs'='hadoop fs'
-function sparkshell() {
-    gnome-terminal -e "tail -f $HOME/spark.log"
-    ~/opt/spark-1.5.1-bin-hadoop2.6/bin/spark-shell
-}
 
 export LC_CTYPE=en_US.UTF-8
 
 alias mvnts='mvn -Dmaven.test.skip=true'
 export PATH=~/opt/node-v4.2.2-linux-x64/bin/:~/bin:$GRADLE_HOME/bin:~/opt/hadoop-2.7.0/bin:$PATH
-export JBOSS_HOME=/data/home/rwill/opt/jbossesb-server-4.7_hsql
-export JBOSS_CONF=default
 # mehr Speicher für Maven
 export MAVEN_OPTS="-Xmx1024M"
 export HISTTIMEFORMAT="%d/%m/%y %T "
 export HISTSIZE=10000
 
 
-function anaconda(){
-    export PATH="/data/home/rwill/opt/anaconda/bin:$PATH"
-}
+# some workaround for IntelliJ. Not sure if needed any more.
 export IBUS_ENABLE_SYNC_MODE=1
 
-function fetch_datawario() {
-    cd ~/tmp 
-    rm -r datawario-0.1/
-    tar xzvf ~/ss/datawario/target/datawario-0.1-bundle.tar.gz 
-    source datawario-0.1/bin/bash_shortcuts
-}
-
-function dev_datawario() {
-    cd ~/tmp/datawario-0.1/bin 
-    rm bash_shortcuts 
-    ln -s ~/ss/datawario/src/main/bash/bash_shortcuts.sh bash_shortcuts
-}
-
-# test "$(afp_minutes_left)" == EXPIRED && echo 'Es ist aus!'
 alias sql-bench=~/opt/sql-workbench/sqlworkbench.sh
 
+listening() {
+ lsof -n -iTCP:$1 | grep LISTEN
+}
+
+show_command_in_title_bar()
+{
+    case "$BASH_COMMAND" in
+        *\033]0*)
+            # The command is trying to set the title bar as well;
+            # this is most likely the execution of $PROMPT_COMMAND.
+            # In any case nested escapes confuse the terminal, so don't
+            # output them.
+            ;;
+        *)
+            echo -ne "\033]0;${USER}@${HOSTNAME}: ${BASH_COMMAND}\007"
+            ;;
+    esac
+}
+trap show_command_in_title_bar DEBUG
