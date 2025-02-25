@@ -1,0 +1,1 @@
+s/personal_docs/dotfiles/.bashrc

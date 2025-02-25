@@ -97,9 +97,6 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-function idea() {
-    XMODIFIERS="" ~/opt/idea-current/bin/idea.sh
-}
 alias ssx='ssh -X'
 
 alias rsync2='rsync -av -e "ssh -A hamman01 ssh -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q"'
@@ -163,3 +160,12 @@ show_command_in_title_bar()
     esac
 }
 trap show_command_in_title_bar DEBUG
+
+pushd ~/s/guidewire
+if 
+  test -e "/home/robertw/s/guidewire/common/suite/gsrc/gwservices/suite/*"
+then
+  util/setup-env.sh
+fi  
+popd
+
